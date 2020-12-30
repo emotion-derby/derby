@@ -1,18 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using App;
 
-public class TitleController : MonoBehaviour
+namespace Scene.Title
 {
-    // Start is called before the first frame update
-    void Start()
+  public class TitleController : MonoBehaviour
+  {
+    public void OnPushStartButton()
     {
-        
+      SceneController.Instance.LoadScene(SceneController.SCENE_NAME.StageSelect);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  }
 }

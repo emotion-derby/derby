@@ -1,4 +1,7 @@
-public class AppController : Common.SingletonMonoBehaviour<AppController>
+namespace App
 {
+  public class AppController : Common.SingletonMonoBehaviour<AppController>
+  {
 
+  }
 }

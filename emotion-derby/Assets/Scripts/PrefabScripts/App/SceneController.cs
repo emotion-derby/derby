@@ -1,16 +1,25 @@
 using UnityEngine.SceneManagement;
 using Common;
 
-public class SceneController : SingletonMonoBehaviour<SceneController>
+namespace App
 {
-  public enum SCENE_NAME
+  public class SceneController : SingletonMonoBehaviour<SceneController>
   {
-    [StringValue("Title")]
-    Title,
-  }
+    public enum SCENE_NAME
+    {
+      [StringValue("Title")]
+      Title,
+      [StringValue("StageSelect")]
+      StageSelect,
+      [StringValue("Batting")]
+      Batting,
+      [StringValue("Result")]
+      Result,
+    }
 
-  public void LoadScene(SCENE_NAME sceneName)
-  {
-    SceneManager.LoadScene(sceneName.GetStringValue());
+    public void LoadScene(SCENE_NAME sceneName)
+    {
+      SceneManager.LoadScene(sceneName.GetStringValue());
+    }
   }
 }

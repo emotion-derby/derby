@@ -1,11 +1,15 @@
 using UnityEngine;
+using App;
 
-public class BootController : MonoBehaviour
+namespace Scene.Boot
 {
-  [SerializeField] private GameObject App;
-  void Start()
+  public class BootController : MonoBehaviour
   {
-    DontDestroyOnLoad(App);
-    SceneController.Instance.LoadScene(SceneController.SCENE_NAME.Title);
+    [SerializeField] private GameObject App;
+    void Start()
+    {
+      DontDestroyOnLoad(App);
+      SceneController.Instance.LoadScene(SceneController.SCENE_NAME.Title);
+    }
   }
 }
