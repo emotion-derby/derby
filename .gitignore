@@ -50,3 +50,9 @@ Thumbs.db
 *.pyc
 
 .vsconfig
+
+# excel tmp files
+~$*.xlsx
+
+# for WebGL
+!docs/Build
