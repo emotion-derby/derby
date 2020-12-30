@@ -27,11 +27,11 @@
     </div>
     <script>
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/webgl.loader.js";
+      var loaderUrl = buildUrl + "/docs.loader.js";
       var config = {
-        dataUrl: buildUrl + "/webgl.data.gz",
-        frameworkUrl: buildUrl + "/webgl.framework.js.gz",
-        codeUrl: buildUrl + "/webgl.wasm.gz",
+        dataUrl: buildUrl + "/docs.data.gz",
+        frameworkUrl: buildUrl + "/docs.framework.js.gz",
+        codeUrl: buildUrl + "/docs.wasm.gz",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "emotion-derby",
@@ -53,8 +53,8 @@
           mobileWarning.style.display = "none";
         }, 5000);
       } else {
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+        canvas.style.width = "1024px";
+        canvas.style.height = "728px";
       }
       loadingBar.style.display = "block";
 
