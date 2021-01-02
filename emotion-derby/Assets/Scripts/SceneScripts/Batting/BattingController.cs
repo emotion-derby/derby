@@ -11,6 +11,13 @@ namespace Scene.Batting
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _meetCircle;
 
+    private Transform _batterBox;
+
+    private void Start()
+    {
+      this._batterBox = this._ground.transform.Find("BatterBox");
+    }
+
     private void Update()
     {
       this.SetPlayerPos();
@@ -40,11 +47,27 @@ namespace Scene.Batting
             playerPos.x = p.x - (this._meetCircle.transform.position.x - playerPos.x);
             playerPos.z = p.z;
 
+            Rect batterBoxRect = GetBatterBoxRect();
+            if (playerPos.x < batterBoxRect.x) playerPos.x = batterBoxRect.x;
+            if (playerPos.x > batterBoxRect.x + batterBoxRect.width) playerPos.x = batterBoxRect.x + batterBoxRect.width;
+            if (playerPos.z > batterBoxRect.y) playerPos.z = batterBoxRect.y;
+            if (playerPos.z < batterBoxRect.y - batterBoxRect.height) playerPos.z = batterBoxRect.y - batterBoxRect.height;
+
             this._player.transform.position = playerPos;
             return;
           }
         }
       }
+    }
+
+    private Rect GetBatterBoxRect()
+    {
+      float x = this._batterBox.Find("Left").position.x;
+      float z = this._batterBox.Find("Top").position.z;
+      float w = this._batterBox.Find("Right").position.x - x;
+      float h = z - this._batterBox.Find("Bottom").position.z;
+
+      return new Rect(x, z, w, h);
     }
 
     public void OnPushToResultButton()
