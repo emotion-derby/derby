@@ -12,5 +12,10 @@ namespace App
       }
       return Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began;
     }
+
+    public static Vector3 GetMousePos()
+    {
+      return Input.mousePosition;
+    }
   }
 }
