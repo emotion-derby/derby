@@ -25,7 +25,7 @@ $ ./derby_gitconfig.sh
 
 ### VisualStudio2019
 
-https://docs.microsoft.com/ja-jp/visualstudio/ide/create-portable-custom-editor-options?view=vs-2019
+https://marketplace.visualstudio.com/items?itemName=MadsKristensen.EditorConfig
 
 ### VisualStudioCode
 
