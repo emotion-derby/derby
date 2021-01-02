@@ -12,6 +12,11 @@ namespace Scene.Batting
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _meetCircle;
 
+    private void Start()
+    {
+      BallCameraController.Instance.gameObject.SetActive(false);
+    }
+
     private void Update()
     {
       this.SetPlayerPos();

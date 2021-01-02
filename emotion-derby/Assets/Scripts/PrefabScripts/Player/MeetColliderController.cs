@@ -10,6 +10,7 @@ namespace Player
       Rigidbody ball = collision.gameObject.GetComponent<Rigidbody>();
       float power = _kick.GetFloat("Power");
       ball.AddForce(collision.impulse * power, ForceMode.Impulse);
+      Scene.Batting.BallCameraController.Instance.StartFollowBall(collision.gameObject);
     }
   }
 }
