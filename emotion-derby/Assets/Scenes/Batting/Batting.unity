@@ -249,8 +249,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
+  m_Convex: 1
+  m_CookingOptions: -1
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &64351178
 MeshRenderer:
@@ -908,13 +908,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1123305394}
   - component: {fileID: 1123305393}
+  - component: {fileID: 1123305395}
   m_Layer: 0
   m_Name: BallCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!20 &1123305393
 Camera:
   m_ObjectHideFlags: 0
@@ -939,7 +940,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 5000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -965,13 +966,25 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123305392}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.1564345, y: 0, z: 0, w: 0.98768836}
+  m_LocalPosition: {x: 0, y: 10.01, z: 3.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 18, y: 0, z: 0}
+--- !u!114 &1123305395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123305392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fabafb9bd8523504bbe516fcd3ce61c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1123455092
 GameObject:
   m_ObjectHideFlags: 0
@@ -8910,13 +8923,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575112603}
-  m_LocalRotation: {x: 0.6241267, y: -0.22995944, z: 0.35890648, w: 0.65480596}
-  m_LocalPosition: {x: 91, y: -789, z: 115}
+  m_LocalRotation: {x: 0.6422937, y: -0.2957344, z: 0.2957344, w: 0.6422937}
+  m_LocalPosition: {x: 89, y: 117, z: 315}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1853240326}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 79.244, y: 51.894, z: 101.34}
+  m_LocalEulerAnglesHint: {x: 90, y: 51.894, z: 101.34}
 --- !u!1 &1853240325
 GameObject:
   m_ObjectHideFlags: 0
