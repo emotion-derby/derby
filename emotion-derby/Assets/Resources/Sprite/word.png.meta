@@ -158,6 +158,9 @@ TextureImporter:
   - first:
       213: -7836734143355001718
     second: stage_
+  - first:
+      213: -5642781860299602699
+    second: EMOTION
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1275,7 +1278,7 @@ TextureImporter:
         width: 179
         height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1296,7 +1299,7 @@ TextureImporter:
         width: 185
         height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1317,7 +1320,7 @@ TextureImporter:
         width: 184
         height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1338,7 +1341,7 @@ TextureImporter:
         width: 185
         height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1346,6 +1349,27 @@ TextureImporter:
       bones: []
       spriteID: a84662241d35e3390800000000000000
       internalID: -7836734143355001718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EMOTION
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 490
+        width: 516
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f403d77bcfc0b1b0800000000000000
+      internalID: -5642781860299602699
       vertices: []
       indices: 
       edges: []

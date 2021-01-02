@@ -7,16 +7,10 @@ namespace Scene.Batting
   public class BattingController : MonoBehaviour
   {
     [SerializeField] private Camera _mainCamera;
-    [SerializeField] private GameObject _ground;
+    [SerializeField] private Collider _groundCollider;
+    [SerializeField] private GameObject _batterBox;
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _meetCircle;
-
-    private Transform _batterBox;
-
-    private void Start()
-    {
-      this._batterBox = this._ground.transform.Find("BatterBox");
-    }
 
     private void Update()
     {
@@ -35,8 +29,7 @@ namespace Scene.Batting
       Ray mousePosRay = this._mainCamera.ScreenPointToRay(mousePos);
       RaycastHit hit;
 
-      Collider groundCollider = this._ground.GetComponent<Collider>();
-      if (groundCollider.Raycast(mousePosRay, out hit, 100f))
+      if (this._groundCollider.Raycast(mousePosRay, out hit, 100f))
       {
         for (int i = 0; i < 100; i++)
         {
@@ -62,10 +55,10 @@ namespace Scene.Batting
 
     private Rect GetBatterBoxRect()
     {
-      float x = this._batterBox.Find("Left").position.x;
-      float z = this._batterBox.Find("Top").position.z;
-      float w = this._batterBox.Find("Right").position.x - x;
-      float h = z - this._batterBox.Find("Bottom").position.z;
+      float x = this._batterBox.transform.Find("Left").position.x;
+      float z = this._batterBox.transform.Find("Top").position.z;
+      float w = this._batterBox.transform.Find("Right").position.x - x;
+      float h = z - this._batterBox.transform.Find("Bottom").position.z;
 
       return new Rect(x, z, w, h);
     }
