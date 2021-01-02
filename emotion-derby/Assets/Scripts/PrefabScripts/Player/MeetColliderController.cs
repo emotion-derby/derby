@@ -9,7 +9,6 @@ namespace Player
     {
       Rigidbody ball = collision.gameObject.GetComponent<Rigidbody>();
       float power = _kick.GetFloat("Power");
-      Debug.Log($"power = {power}");
       ball.AddForce(collision.impulse * power, ForceMode.Impulse);
     }
   }
