@@ -15,7 +15,6 @@ namespace Ball
     // Update is called once per frame
     private void Update()
     {
-      Debug.Log((DateTime.Now - this._createdTime).Seconds);
       if ((DateTime.Now - this._createdTime).Seconds >= this._lifeTimeSec)
       {
         this.gameObject.SetActive(false);

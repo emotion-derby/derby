@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Scene.Batting
@@ -7,8 +8,24 @@ namespace Scene.Batting
     private GameObject _ball;
     public void StartFollowBall(GameObject ball)
     {
-      this.gameObject.SetActive(true);
       this._ball = ball;
+      {
+        UniTask.Create(async () =>
+        {
+          await UniTask.DelayFrame(10);
+          Debug.Log(this._ball.GetComponent<Rigidbody>().velocity.z);
+          if (this._ball.GetComponent<Rigidbody>().velocity.z > 0)
+          {
+            await UniTask.Delay(300);
+            Time.timeScale = 2f;
+            this.gameObject.SetActive(true);
+          }
+          else
+          {
+            this.gameObject.SetActive(true);
+          }
+        });
+      }
     }
 
     public void Update()
@@ -17,6 +34,7 @@ namespace Scene.Batting
       {
         this._ball = null;
         this.gameObject.SetActive(false);
+        Time.timeScale = 1f;
       }
       else
       {

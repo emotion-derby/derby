@@ -19,9 +19,12 @@ namespace Pitcher
         while (true)
         {
           if (this._cancelToken.IsCancellationRequested) return;
-          GameObject ball = Instantiate(this._ball, this._world.transform);
-          ball.transform.position = this.transform.position + new Vector3(0f, 1.0f, -2f);
-          ball.GetComponent<Rigidbody>().AddForce(0, 3f, -50f, ForceMode.Impulse);
+          if (!Scene.Batting.BallCameraController.Instance.gameObject.activeSelf)
+          {
+            GameObject ball = Instantiate(this._ball, this._world.transform);
+            ball.transform.position = this.transform.position + new Vector3(0f, 1.0f, -2f);
+            ball.GetComponent<Rigidbody>().AddForce(0, 3f, -50f, ForceMode.Impulse);
+          }
           await UniTask.Delay(2 * 1000);
         }
       });
