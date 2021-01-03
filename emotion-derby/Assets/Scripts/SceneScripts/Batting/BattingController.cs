@@ -3,6 +3,7 @@ using System;
 using Prefabs.App;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Scene.Batting
 {
@@ -18,12 +19,17 @@ namespace Scene.Batting
     [SerializeField] private GameObject _ballPrefab;
     [SerializeField] private GameObject _scoreBoard;
     [SerializeField] private GameObject _notify;
+    [SerializeField] private Prefabs.Score.FlyingDistanceDisplayController _flyingDistanceController;
     [SerializeField] private int _remainBalls = 25;
     [SerializeField] private int _goalBalls = 15;
 
     private Prefabs.Score.ScoreController _remainScoreController;
+    private Prefabs.Score.ScoreController _homeRunScoreController;
     private Prefabs.Player.PlayerController _playerController;
     private GameObject _currentBall = null;
+    private int _homeRunCount = 0;
+    private List<String> _resultList = new List<String>();
+    private List<int> _flyingDistances = new List<int>();
 
     private CancellationTokenSource _cancelToken = new CancellationTokenSource();
 
@@ -32,6 +38,7 @@ namespace Scene.Batting
       BallCameraController.Instance.gameObject.SetActive(false);
       this._scoreBoard.transform.Find("Goal").GetComponent<Prefabs.Score.ScoreController>().SetScore(this._goalBalls);
       this._remainScoreController = this._scoreBoard.transform.Find("Remain").GetComponent<Prefabs.Score.ScoreController>();
+      this._homeRunScoreController = this._scoreBoard.transform.Find("Homerun").GetComponent<Prefabs.Score.ScoreController>();
       this._remainScoreController.SetScore(this._remainBalls);
       this._playerController = this._player.GetComponent<Prefabs.Player.PlayerController>();
 
@@ -67,10 +74,23 @@ namespace Scene.Batting
     {
       this.SetPlayerPos();
       this.Notify();
+      this.DisplayFlyingDistance();
 
       if (InputController.OnTouchOrClickScreen())
       {
         _player.GetComponent<Prefabs.Player.PlayerController>().Kick();
+      }
+    }
+
+    private void DisplayFlyingDistance()
+    {
+      if (this._currentBall)
+      {
+        Prefabs.Ball.BallController ballController = this._currentBall.GetComponent<Prefabs.Ball.BallController>();
+        if (!ballController.isHitGround)
+        {
+          this._flyingDistanceController.SetDistance(this.GetFlyingDistance());
+        }
       }
     }
 
@@ -98,6 +118,7 @@ namespace Scene.Batting
           if (!ballController.isHitToBat)
           {
             _Notify(this._notify.transform.Find("Strike").gameObject);
+            this._resultList.Add("Strike");
             ballController.isNotified = true;
             return;
           }
@@ -109,11 +130,24 @@ namespace Scene.Batting
             float innerProduct = Math.Abs(homeBaseVerticalVec.x * ballVec.x + homeBaseVerticalVec.z * ballVec.z);
             if (innerProduct >= Math.Cos(Math.PI / 4) && this._currentBall.transform.position.z >= this._homeBase.position.z)
             {
-              _Notify(this._notify.transform.Find("Hit").gameObject);
+              int d = this.GetFlyingDistance();
+              this._flyingDistances.Add(d);
+              if (d >= 500)
+              {
+                _Notify(this._notify.transform.Find("HomeRun").gameObject);
+                this._homeRunScoreController.SetScore(++this._homeRunCount);
+                this._resultList.Add("HomeRun");
+              }
+              else
+              {
+                _Notify(this._notify.transform.Find("Hit").gameObject);
+                this._resultList.Add("Hit");
+              }
             }
             else
             {
               _Notify(this._notify.transform.Find("Faul").gameObject);
+              this._resultList.Add("Faul");
             }
             ballController.isNotified = true;
           }
@@ -150,6 +184,21 @@ namespace Scene.Batting
           }
         }
       }
+    }
+
+    private int GetFlyingDistance()
+    {
+      if (this._currentBall)
+      {
+        Prefabs.Ball.BallController ballController = this._currentBall.GetComponent<Prefabs.Ball.BallController>();
+        if (ballController.isHitToBat)
+        {
+          Vector3 distance = this._currentBall.transform.position - this._homeBase.position;
+          Vector2 distance2d = new Vector2(distance.x, distance.z);
+          return (int)(distance2d.magnitude / 5);
+        }
+      }
+      return 0;
     }
 
     private Rect GetBatterBoxRect()
