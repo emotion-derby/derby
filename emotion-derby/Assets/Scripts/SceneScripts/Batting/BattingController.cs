@@ -4,6 +4,7 @@ using Prefabs.App;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Scene.Batting
 {
@@ -20,8 +21,8 @@ namespace Scene.Batting
     [SerializeField] private GameObject _scoreBoard;
     [SerializeField] private GameObject _notify;
     [SerializeField] private Prefabs.Score.FlyingDistanceDisplayController _flyingDistanceController;
-    [SerializeField] private int _remainBalls = 25;
-    [SerializeField] private int _goalBalls = 15;
+    [SerializeField] private int _remainBalls;
+    [SerializeField] private int _goalBalls;
 
     private Prefabs.Score.ScoreController _remainScoreController;
     private Prefabs.Score.ScoreController _homeRunScoreController;
@@ -33,14 +34,23 @@ namespace Scene.Batting
 
     private CancellationTokenSource _cancelToken = new CancellationTokenSource();
 
+    private bool isInitialized = false;
+
     private void Start()
     {
       BallCameraController.Instance.gameObject.SetActive(false);
-      this._scoreBoard.transform.Find("Goal").GetComponent<Prefabs.Score.ScoreController>().SetScore(this._goalBalls);
-      this._remainScoreController = this._scoreBoard.transform.Find("Remain").GetComponent<Prefabs.Score.ScoreController>();
-      this._homeRunScoreController = this._scoreBoard.transform.Find("Homerun").GetComponent<Prefabs.Score.ScoreController>();
-      this._remainScoreController.SetScore(this._remainBalls);
-      this._playerController = this._player.GetComponent<Prefabs.Player.PlayerController>();
+      UniTask.Void(async () =>
+      {
+        // WebGL版で何故かスコア系の値が入らないので暫定対処
+        await UniTask.DelayFrame(1);
+        if (this._cancelToken.IsCancellationRequested) return;
+        this._scoreBoard.transform.Find("Goal").GetComponent<Prefabs.Score.ScoreController>().SetScore(this._goalBalls);
+        this._remainScoreController = this._scoreBoard.transform.Find("Remain").GetComponent<Prefabs.Score.ScoreController>();
+        this._homeRunScoreController = this._scoreBoard.transform.Find("Homerun").GetComponent<Prefabs.Score.ScoreController>();
+        this._remainScoreController.SetScore(this._remainBalls);
+        this._playerController = this._player.GetComponent<Prefabs.Player.PlayerController>();
+        this.isInitialized = true;
+      });
 
       UniTask.Void(async () =>
       {
@@ -50,16 +60,18 @@ namespace Scene.Batting
         {
           if (this._cancelToken.IsCancellationRequested) return;
           await UniTask.WaitUntil(() =>
-          {
-            if (this._currentBall != null)
-            {
-              return !this._currentBall.gameObject.activeSelf && pitcherController.isReady;
-            }
-            return pitcherController.isReady;
-          });
+                {
+                  if (this._currentBall != null)
+                  {
+                    return !this._currentBall.gameObject.activeSelf && pitcherController.isReady;
+                  }
+                  return pitcherController.isReady;
+                });
           if (this._remainBalls <= 0)
           {
+            this.CalScoreData();
             SceneController.Instance.LoadScene(SceneController.SCENE_NAME.Result);
+            this._cancelToken.Cancel();
             return;
           }
           await UniTask.Delay(1000);
@@ -72,13 +84,16 @@ namespace Scene.Batting
 
     private void Update()
     {
-      this.SetPlayerPos();
-      this.Notify();
-      this.DisplayFlyingDistance();
-
-      if (InputController.OnTouchOrClickScreen())
+      if (this.isInitialized)
       {
-        _player.GetComponent<Prefabs.Player.PlayerController>().Kick();
+        this.SetPlayerPos();
+        this.Notify();
+        this.DisplayFlyingDistance();
+
+        if (InputController.OnTouchOrClickScreen())
+        {
+          _player.GetComponent<Prefabs.Player.PlayerController>().Kick();
+        }
       }
     }
 
@@ -104,6 +119,7 @@ namespace Scene.Batting
           UniTask.Void(async () =>
           {
             await UniTask.Delay(3000);
+            if (this._cancelToken.IsCancellationRequested) return;
             gameObject.SetActive(false);
           });
         }
@@ -201,6 +217,29 @@ namespace Scene.Batting
       return 0;
     }
 
+    private void CalScoreData()
+    {
+      ScoreData.Instance.isSuccess = this._homeRunCount >= this._goalBalls;
+      ScoreData.Instance.homeRunCount = this._homeRunCount;
+      int continuousHomerunCount = 0;
+      int tmp = 0;
+      this._resultList.ForEach(str =>
+      {
+        if (str == "HomeRun")
+        {
+          tmp++;
+        }
+        else
+        {
+          if (tmp > continuousHomerunCount) continuousHomerunCount = tmp;
+          tmp = 0;
+        }
+      });
+      ScoreData.Instance.continuousHomeRunCount = continuousHomerunCount;
+      ScoreData.Instance.maxFlyingDistance = this._flyingDistances.Max();
+      ScoreData.Instance.totalFlyingDistance = this._flyingDistances.Sum();
+    }
+
     private Rect GetBatterBoxRect()
     {
       float x = this._batterBox.transform.Find("Left").position.x;
@@ -209,11 +248,6 @@ namespace Scene.Batting
       float h = z - this._batterBox.transform.Find("Bottom").position.z;
 
       return new Rect(x, z, w, h);
-    }
-
-    public void OnPushToResultButton()
-    {
-      SceneController.Instance.LoadScene(SceneController.SCENE_NAME.Result);
     }
 
     private void OnDestroy()
