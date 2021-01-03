@@ -50,9 +50,7 @@ namespace Prefabs.App
 
     public void PlayAudio(AUDIO_NAME name)
     {
-      AudioClip clip = Resources.Load($"Sounds/{name.GetStringValue()}") as AudioClip;
-      //List<AudioClip> list = this._mansAudioClips.Concat(this._seAudioClips).Concat(this._voicesClips).ToList();
-      //this._audio.PlayOneShot(list.Find(_ => _.name == name.GetStringValue()));
+      AudioClip clip = Resources.Load<AudioClip>($"Sounds/{name.GetStringValue()}");
       this._audio.PlayOneShot(clip);
     }
   }
