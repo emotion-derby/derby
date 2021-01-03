@@ -133,6 +133,7 @@ namespace Scene.Batting
         {
           if (!ballController.isHitToBat)
           {
+            AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.FUGOUKAKU);
             _Notify(this._notify.transform.Find("Strike").gameObject);
             this._resultList.Add("Strike");
             ballController.isNotified = true;
@@ -150,18 +151,21 @@ namespace Scene.Batting
               this._flyingDistances.Add(d);
               if (d >= 500)
               {
+                AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.KANSEI_BIG);
                 _Notify(this._notify.transform.Find("HomeRun").gameObject);
                 this._homeRunScoreController.SetScore(++this._homeRunCount);
                 this._resultList.Add("HomeRun");
               }
               else
               {
+                AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.KANSEI_MIDDLE);
                 _Notify(this._notify.transform.Find("Hit").gameObject);
                 this._resultList.Add("Hit");
               }
             }
             else
             {
+              AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.FUGOUKAKU);
               _Notify(this._notify.transform.Find("Faul").gameObject);
               this._resultList.Add("Faul");
             }

@@ -21,6 +21,7 @@ namespace Prefabs.Player
     }
     public void Kick()
     {
+      App.AudioController.Instance.PlayRandomManVoice();
       this._animator.SetTrigger("Kick");
     }
   }

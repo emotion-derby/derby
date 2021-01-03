@@ -11,6 +11,7 @@ namespace Scene.Title
     }
     public void OnPushStartButton()
     {
+      AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.BUTTON);
       SceneController.Instance.LoadScene(SceneController.SCENE_NAME.StageSelect);
     }
   }

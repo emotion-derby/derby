@@ -29,6 +29,7 @@ namespace Prefabs.Pitcher
 
     public void PitchingFromAnimation()
     {
+      App.AudioController.Instance.PlayRandomManVoice();
       this._ball.GetComponent<Rigidbody>().isKinematic = false;
       this._ball.transform.position = this.transform.position + this._pitchingOffset;
       this._ball.GetComponent<Rigidbody>().AddForce(this._pitchingForce, ForceMode.Impulse);
