@@ -69,7 +69,7 @@ namespace Scene.Batting
                 });
           if (this._remainBalls <= 0)
           {
-            this.CalScoreData();
+            this.CalcScoreData();
             SceneController.Instance.LoadScene(SceneController.SCENE_NAME.Result);
             this._cancelToken.Cancel();
             return;
@@ -217,7 +217,7 @@ namespace Scene.Batting
       return 0;
     }
 
-    private void CalScoreData()
+    private void CalcScoreData()
     {
       ScoreData.Instance.isSuccess = this._homeRunCount >= this._goalBalls;
       ScoreData.Instance.homeRunCount = this._homeRunCount;
