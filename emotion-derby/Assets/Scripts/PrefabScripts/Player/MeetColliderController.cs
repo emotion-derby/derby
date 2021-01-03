@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player
+namespace Prefabs.Player
 {
   public class MeetColliderController : MonoBehaviour
   {

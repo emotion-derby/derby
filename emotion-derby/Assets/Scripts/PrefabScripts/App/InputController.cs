@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace App
+namespace Prefabs.App
 {
   public class InputController : Common.SingletonMonoBehaviour<InputController>
   {

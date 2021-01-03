@@ -266,9 +266,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 617
+        y: 616
         width: 11
-        height: 18
+        height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -286,10 +286,10 @@ TextureImporter:
       name: word_1
       rect:
         serializedVersion: 2
-        x: 26
+        x: 20
         y: 617
-        width: 3
-        height: 17
+        width: 11
+        height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -328,9 +328,9 @@ TextureImporter:
       name: word_3
       rect:
         serializedVersion: 2
-        x: 52
+        x: 51
         y: 616
-        width: 9
+        width: 11
         height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -350,9 +350,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 67
-        y: 618
+        y: 617
         width: 11
-        height: 17
+        height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -412,10 +412,10 @@ TextureImporter:
       name: word_7
       rect:
         serializedVersion: 2
-        x: 116
+        x: 115
         y: 617
-        width: 9
-        height: 18
+        width: 11
+        height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1362,7 +1362,7 @@ TextureImporter:
         width: 516
         height: 52
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

@@ -1,7 +1,7 @@
 using UnityEngine.SceneManagement;
 using Common;
 
-namespace App
+namespace Prefabs.App
 {
   public class SceneController : SingletonMonoBehaviour<SceneController>
   {

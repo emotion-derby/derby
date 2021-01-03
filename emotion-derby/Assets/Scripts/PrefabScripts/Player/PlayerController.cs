@@ -1,10 +1,19 @@
 using UnityEngine;
 
-namespace Player
+namespace Prefabs.Player
 {
   public class PlayerController : MonoBehaviour
   {
+    [SerializeField] private GameObject _meetCircle;
     private Animator _animator;
+
+    public GameObject meetCircle
+    {
+      get
+      {
+        return this._meetCircle;
+      }
+    }
 
     private void Start()
     {

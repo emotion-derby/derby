@@ -1,38 +1,38 @@
-using Cysharp.Threading.Tasks;
-using System.Threading;
 using UnityEngine;
 
-namespace Pitcher
+namespace Prefabs.Pitcher
 {
   public class PitcherController : MonoBehaviour
   {
-    [SerializeField] private GameObject _world;
-    [SerializeField] private GameObject _ball;
+    [SerializeField] private Vector3 _pitchingOffset;
+    [SerializeField] private Vector3 _pitchingForce;
 
-    private CancellationTokenSource _cancelToken;
+    private Animator _animator;
+    private GameObject _ball = null;
+
+    public bool isReady { get; private set; } = true;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-      this._cancelToken = new CancellationTokenSource();
-      UniTask.Create(async () =>
-      {
-        while (true)
-        {
-          if (this._cancelToken.IsCancellationRequested) return;
-          if (!Scene.Batting.BallCameraController.Instance.gameObject.activeSelf)
-          {
-            GameObject ball = Instantiate(this._ball, this._world.transform);
-            ball.transform.position = this.transform.position + new Vector3(0f, 1.0f, -2f);
-            ball.GetComponent<Rigidbody>().AddForce(0, 3f, -50f, ForceMode.Impulse);
-          }
-          await UniTask.Delay(2 * 1000);
-        }
-      });
+      this._animator = this.gameObject.GetComponent<Animator>();
     }
 
-    void OnDestroy()
+    public void StartPitching(GameObject ball)
     {
-      this._cancelToken.Cancel();
+      this._ball = ball;
+      // 実際に投球するまで地面に当たらない位置に固定＆重力加速度をストップ
+      this._ball.transform.position = new Vector3(0, 100, 0);
+      this._ball.GetComponent<Rigidbody>().isKinematic = true;
+      this.isReady = false;
+      this._animator.SetTrigger("Pitching");
+    }
+
+    public void PitchingFromAnimation()
+    {
+      this._ball.GetComponent<Rigidbody>().isKinematic = false;
+      this._ball.transform.position = this.transform.position + this._pitchingOffset;
+      this._ball.GetComponent<Rigidbody>().AddForce(this._pitchingForce, ForceMode.Impulse);
+      this.isReady = true;
     }
   }
 }

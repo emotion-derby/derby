@@ -13,7 +13,6 @@ namespace Scene.Batting
         UniTask.Create(async () =>
         {
           await UniTask.DelayFrame(10);
-          Debug.Log(this._ball.GetComponent<Rigidbody>().velocity.z);
           if (this._ball.GetComponent<Rigidbody>().velocity.z > 0)
           {
             await UniTask.Delay(300);

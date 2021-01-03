@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-namespace Ball
+namespace Prefabs.Ball
 {
   public class BallController : MonoBehaviour
   {
@@ -12,6 +12,10 @@ namespace Ball
     {
       _createdTime = DateTime.Now;
     }
+
+    public bool isHitToBat { get; private set; } = false;
+    public bool isHitGround { get; private set; } = false;
+    public bool isNotified = false;
     // Update is called once per frame
     private void Update()
     {
@@ -25,10 +29,15 @@ namespace Ball
 
     private void OnCollisionEnter(Collision collision)
     {
-      if (collision.collider.name == "Ground" && this._lifeTimeSec > 2)
+      if (collision.collider.name == "Ground" && this._lifeTimeSec > 1)
       {
+        this.isHitGround = true;
         this._createdTime = DateTime.Now;
-        this._lifeTimeSec = 2;
+        this._lifeTimeSec = 1;
+      }
+      else if (collision.collider.name == "MeetCircle")
+      {
+        this.isHitToBat = true;
       }
     }
   }

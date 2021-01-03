@@ -1,5 +1,5 @@
 using UnityEngine;
-using App;
+using Prefabs.App;
 
 namespace Scene.Result
 {
