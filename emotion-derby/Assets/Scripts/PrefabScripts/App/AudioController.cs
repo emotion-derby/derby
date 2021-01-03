@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
-using System.Linq;
+using Cysharp.Threading.Tasks;
 
 namespace Prefabs.App
 {
@@ -45,13 +45,17 @@ namespace Prefabs.App
         AUDIO_NAME.KURAE,
         AUDIO_NAME.TOU,
       };
-      this.PlayAudio(voices[Random.Range(0, 3)]);
+      this.PlayAudio(voices[Random.Range(0, 3)]).Forget();
     }
 
-    public void PlayAudio(AUDIO_NAME name)
+    public async UniTask PlayAudio(AUDIO_NAME name)
     {
       AudioClip clip = Resources.Load<AudioClip>($"Sounds/{name.GetStringValue()}");
       this._audio.PlayOneShot(clip);
+      await UniTask.WaitWhile(() =>
+      {
+        return this._audio.isPlaying;
+      });
     }
   }
 }

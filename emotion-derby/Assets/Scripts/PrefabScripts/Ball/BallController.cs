@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Cysharp.Threading.Tasks;
 
 namespace Prefabs.Ball
 {
@@ -31,19 +32,19 @@ namespace Prefabs.Ball
     {
       if (collision.collider.name == "Ground" && this._lifeTimeSec > 1)
       {
-        App.AudioController.Instance.PlayAudio(App.AudioController.AUDIO_NAME.KODUTUMI);
+        App.AudioController.Instance.PlayAudio(App.AudioController.AUDIO_NAME.KODUTUMI).Forget();
         this.isHitGround = true;
         this._createdTime = DateTime.Now;
         this._lifeTimeSec = 1;
       }
       else if (collision.collider.name == "MeetCircle")
       {
-        App.AudioController.Instance.PlayAudio(App.AudioController.AUDIO_NAME.MUTI);
+        App.AudioController.Instance.PlayAudio(App.AudioController.AUDIO_NAME.MUTI).Forget();
         this.isHitToBat = true;
       }
       else
       {
-        App.AudioController.Instance.PlayAudio(App.AudioController.AUDIO_NAME.KODUTUMI);
+        App.AudioController.Instance.PlayAudio(App.AudioController.AUDIO_NAME.KODUTUMI).Forget();
       }
     }
   }

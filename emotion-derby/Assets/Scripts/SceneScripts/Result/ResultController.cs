@@ -18,12 +18,12 @@ namespace Scene.Result
     {
       if (ScoreData.Instance.isSuccess)
       {
-        AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.GOUKAKU);
+        AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.GOUKAKU).Forget();
         this._clearText.SetActive(true);
       }
       else
       {
-        AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.FUGOUKAKU);
+        AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.FUGOUKAKU).Forget();
         this._failedText.SetActive(true);
       }
 
@@ -39,8 +39,11 @@ namespace Scene.Result
 
     public void OnPushReturnTitleButton()
     {
-      AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.BUTTON);
-      SceneController.Instance.LoadScene(SceneController.SCENE_NAME.Title);
+      UniTask.Void(async () =>
+      {
+        await AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.BUTTON);
+        SceneController.Instance.LoadScene(SceneController.SCENE_NAME.Title);
+      });
     }
   }
 }

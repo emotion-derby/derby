@@ -1,5 +1,6 @@
 using UnityEngine;
 using Prefabs.App;
+using Cysharp.Threading.Tasks;
 
 namespace Scene.Title
 {
@@ -11,8 +12,11 @@ namespace Scene.Title
     }
     public void OnPushStartButton()
     {
-      AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.BUTTON);
-      SceneController.Instance.LoadScene(SceneController.SCENE_NAME.StageSelect);
+      UniTask.Void(async () =>
+      {
+        await AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.BUTTON);
+        SceneController.Instance.LoadScene(SceneController.SCENE_NAME.StageSelect);
+      });
     }
   }
 }
