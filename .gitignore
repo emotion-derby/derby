@@ -56,3 +56,6 @@ Thumbs.db
 
 # for WebGL
 !docs/Build
+
+# Unity Logs
+Logs
