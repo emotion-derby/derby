@@ -202,7 +202,7 @@ PrefabInstance:
     - target: {fileID: 2174548561004833580, guid: 6e719be5c07440a4c8067c3be67a00e3, type: 3}
       propertyPath: _seAudioClips.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 2846e141251171c45b9a7cefe3a257f4, type: 3}
+      objectReference: {fileID: 8300000, guid: 30fa08ee27817e345ae36cfe0943faa5, type: 3}
     - target: {fileID: 2174548561004833580, guid: 6e719be5c07440a4c8067c3be67a00e3, type: 3}
       propertyPath: _seAudioClips.Array.data[1]
       value: 

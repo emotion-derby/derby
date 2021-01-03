@@ -7,10 +7,6 @@ namespace Prefabs.App
 {
   public class AudioController : Common.SingletonMonoBehaviour<AudioController>
   {
-    [SerializeField] private List<AudioClip> _mansAudioClips;
-    [SerializeField] private List<AudioClip> _seAudioClips;
-    [SerializeField] private List<AudioClip> _voicesClips;
-
     private AudioSource _audio;
 
     public enum AUDIO_NAME {
@@ -43,13 +39,21 @@ namespace Prefabs.App
 
     public void PlayRandomManVoice()
     {
-      this._audio.PlayOneShot(_mansAudioClips[Random.Range(0, 3)]);
+      List<AUDIO_NAME> voices = new List<AUDIO_NAME>()
+      {
+        AUDIO_NAME.AMAI,
+        AUDIO_NAME.KURAE,
+        AUDIO_NAME.TOU,
+      };
+      this.PlayAudio(voices[Random.Range(0, 3)]);
     }
 
     public void PlayAudio(AUDIO_NAME name)
     {
-      List<AudioClip> list = this._mansAudioClips.Concat(this._seAudioClips).Concat(this._voicesClips).ToList();
-      this._audio.PlayOneShot(list.Find(_ => _.name == name.GetStringValue()));
+      AudioClip clip = Resources.Load($"Sounds/{name.GetStringValue()}") as AudioClip;
+      //List<AudioClip> list = this._mansAudioClips.Concat(this._seAudioClips).Concat(this._voicesClips).ToList();
+      //this._audio.PlayOneShot(list.Find(_ => _.name == name.GetStringValue()));
+      this._audio.PlayOneShot(clip);
     }
   }
 }
