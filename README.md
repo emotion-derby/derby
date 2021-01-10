@@ -1,7 +1,7 @@
 # derby
 プニキインスパイア
 
-Unity ver : 2020.2.0f1
+Unity ver : 2021.1.0b1
 
 ## gitconfig
 
