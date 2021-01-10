@@ -30,7 +30,7 @@ namespace Scene.Batting
     private GameObject _currentBall = null;
     private int _homeRunCount = 0;
     private List<String> _resultList = new List<String>();
-    private List<int> _flyingDistances = new List<int>();
+    private List<int> _flyingDistances = new List<int>() { 0 };
 
     private CancellationTokenSource _cancelToken = new CancellationTokenSource();
 
