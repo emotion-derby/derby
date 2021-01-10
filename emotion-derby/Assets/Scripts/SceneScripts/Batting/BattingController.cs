@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Scene.Batting
 {
-  public class BattingController : MonoBehaviour
+  public class BattingController : Common.SceneControllerBase
   {
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private GameObject _world;
@@ -133,7 +133,7 @@ namespace Scene.Batting
         {
           if (!ballController.isHitToBat)
           {
-            AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.FUGOUKAKU).Forget();
+            AudioController.Instance.PlayOneShotAudio(AudioController.AUDIO_NAME.FUGOUKAKU).Forget();
             _Notify(this._notify.transform.Find("Strike").gameObject);
             this._resultList.Add("Strike");
             ballController.isNotified = true;
@@ -151,21 +151,21 @@ namespace Scene.Batting
               this._flyingDistances.Add(d);
               if (d >= 500)
               {
-                AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.KANSEI_BIG).Forget();
+                AudioController.Instance.PlayOneShotAudio(AudioController.AUDIO_NAME.KANSEI_BIG).Forget();
                 _Notify(this._notify.transform.Find("HomeRun").gameObject);
                 this._homeRunScoreController.SetScore(++this._homeRunCount);
                 this._resultList.Add("HomeRun");
               }
               else
               {
-                AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.KANSEI_MIDDLE).Forget();
+                AudioController.Instance.PlayOneShotAudio(AudioController.AUDIO_NAME.KANSEI_MIDDLE).Forget();
                 _Notify(this._notify.transform.Find("Hit").gameObject);
                 this._resultList.Add("Hit");
               }
             }
             else
             {
-              AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.FUGOUKAKU).Forget();
+              AudioController.Instance.PlayOneShotAudio(AudioController.AUDIO_NAME.FUGOUKAKU).Forget();
               _Notify(this._notify.transform.Find("Faul").gameObject);
               this._resultList.Add("Faul");
             }

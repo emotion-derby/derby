@@ -32,19 +32,19 @@ namespace Prefabs.Ball
     {
       if (collision.collider.name == "Ground" && this._lifeTimeSec > 1)
       {
-        App.AudioController.Instance.PlayAudio(App.AudioController.AUDIO_NAME.KODUTUMI).Forget();
+        App.AudioController.Instance.PlayOneShotAudio(App.AudioController.AUDIO_NAME.KODUTUMI).Forget();
         this.isHitGround = true;
         this._createdTime = DateTime.Now;
         this._lifeTimeSec = 1;
       }
       else if (collision.collider.name == "MeetCircle")
       {
-        App.AudioController.Instance.PlayAudio(App.AudioController.AUDIO_NAME.MUTI).Forget();
+        App.AudioController.Instance.PlayOneShotAudio(App.AudioController.AUDIO_NAME.MUTI).Forget();
         this.isHitToBat = true;
       }
       else
       {
-        App.AudioController.Instance.PlayAudio(App.AudioController.AUDIO_NAME.KODUTUMI).Forget();
+        App.AudioController.Instance.PlayOneShotAudio(App.AudioController.AUDIO_NAME.KODUTUMI).Forget();
       }
     }
   }

@@ -1,9 +1,10 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Common;
 
 namespace Scene.Batting
 {
-  public class BallCameraController : Common.SingletonMonoBehaviour<BallCameraController>
+  public class BallCameraController : SingletonMonoBehaviour<BallCameraController>
   {
     private GameObject _ball;
     public void StartFollowBall(GameObject ball)

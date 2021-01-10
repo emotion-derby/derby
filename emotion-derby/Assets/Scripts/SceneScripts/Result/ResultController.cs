@@ -5,7 +5,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Scene.Result
 {
-  public class ResultController : MonoBehaviour
+  public class ResultController : Common.SceneControllerBase
   {
     [SerializeField] private GameObject _clearText;
     [SerializeField] private GameObject _failedText;
@@ -18,12 +18,12 @@ namespace Scene.Result
     {
       if (ScoreData.Instance.isSuccess)
       {
-        AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.GOUKAKU).Forget();
+        AudioController.Instance.PlayOneShotAudio(AudioController.AUDIO_NAME.GOUKAKU).Forget();
         this._clearText.SetActive(true);
       }
       else
       {
-        AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.FUGOUKAKU).Forget();
+        AudioController.Instance.PlayOneShotAudio(AudioController.AUDIO_NAME.FUGOUKAKU).Forget();
         this._failedText.SetActive(true);
       }
 
@@ -39,11 +39,8 @@ namespace Scene.Result
 
     public void OnPushReturnTitleButton()
     {
-      UniTask.Void(async () =>
-      {
-        await AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.BUTTON);
+        AudioController.Instance.PlayAudio(AudioController.AUDIO_NAME.BUTTON).Forget();
         SceneController.Instance.LoadScene(SceneController.SCENE_NAME.Title);
-      });
     }
   }
 }

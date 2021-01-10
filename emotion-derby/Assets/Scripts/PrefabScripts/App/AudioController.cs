@@ -7,6 +7,7 @@ namespace Prefabs.App
 {
   public class AudioController : Common.SingletonMonoBehaviour<AudioController>
   {
+    private const string SOUND_PATH_ROOT = "Sounds/";
     private AudioSource _audio;
 
     public enum AUDIO_NAME {
@@ -45,13 +46,24 @@ namespace Prefabs.App
         AUDIO_NAME.KURAE,
         AUDIO_NAME.TOU,
       };
-      this.PlayAudio(voices[Random.Range(0, 3)]).Forget();
+      this.PlayOneShotAudio(voices[Random.Range(0, 3)]).Forget();
+    }
+
+    public async UniTask PlayOneShotAudio(AUDIO_NAME name)
+    {
+      AudioClip clip = Resources.Load<AudioClip>($"{SOUND_PATH_ROOT}{name.GetStringValue()}");
+      this._audio.PlayOneShot(clip);
+      await UniTask.WaitWhile(() =>
+      {
+        return this._audio.isPlaying;
+      });
     }
 
     public async UniTask PlayAudio(AUDIO_NAME name)
     {
-      AudioClip clip = Resources.Load<AudioClip>($"Sounds/{name.GetStringValue()}");
-      this._audio.PlayOneShot(clip);
+      AudioClip clip = Resources.Load<AudioClip>($"{SOUND_PATH_ROOT}{name.GetStringValue()}");
+      this._audio.clip = clip;
+      this._audio.Play();
       await UniTask.WaitWhile(() =>
       {
         return this._audio.isPlaying;
