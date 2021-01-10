@@ -12,6 +12,8 @@ namespace Scene.Batting
   {
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private GameObject _world;
+    [SerializeField] private GameObject _treePrefab;
+    [SerializeField] private GameObject _treesContainer;
     [SerializeField] private Collider _groundCollider;
     [SerializeField] private Transform _homeBase;
     [SerializeField] private GameObject _batterBox;
@@ -38,6 +40,13 @@ namespace Scene.Batting
 
     private void Start()
     {
+      // 木を生やす
+      for (int i = 0; i < 50; i++)
+      {
+        GameObject tree = Instantiate(this._treePrefab, this._treesContainer.transform);
+        tree.transform.position = new Vector3(UnityEngine.Random.Range(-1000, 1000f), 0, UnityEngine.Random.Range(250f, 1000f));
+      }
+
       BallCameraController.Instance.gameObject.SetActive(false);
       UniTask.Void(async () =>
       {
@@ -215,7 +224,7 @@ namespace Scene.Batting
         {
           Vector3 distance = this._currentBall.transform.position - this._homeBase.position;
           Vector2 distance2d = new Vector2(distance.x, distance.z);
-          return (int)(distance2d.magnitude / 5);
+          return (int)distance2d.magnitude;
         }
       }
       return 0;
