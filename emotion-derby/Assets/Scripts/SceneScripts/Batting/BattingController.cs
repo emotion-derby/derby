@@ -44,7 +44,7 @@ namespace Scene.Batting
       for (int i = 0; i < 50; i++)
       {
         GameObject tree = Instantiate(this._treePrefab, this._treesContainer.transform);
-        tree.transform.position = new Vector3(UnityEngine.Random.Range(-1000, 1000f), 0, UnityEngine.Random.Range(250f, 1000f));
+        tree.transform.position = new Vector3(UnityEngine.Random.Range(-1000, 1000f), 4, UnityEngine.Random.Range(250f, 1000f));
       }
 
       BallCameraController.Instance.gameObject.SetActive(false);

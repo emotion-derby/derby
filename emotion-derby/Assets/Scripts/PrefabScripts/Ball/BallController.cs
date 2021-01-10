@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using Cysharp.Threading.Tasks;
+using System.Linq;
 
 namespace Prefabs.Ball
 {
@@ -30,7 +31,7 @@ namespace Prefabs.Ball
 
     private void OnCollisionEnter(Collision collision)
     {
-      if (collision.collider.name == "Ground" && this._lifeTimeSec > 1)
+      if ((collision.collider.name == "Ground" || collision.collider.name.Contains("Terrain")) && this._lifeTimeSec > 1)
       {
         App.AudioController.Instance.PlayOneShotAudio(App.AudioController.AUDIO_NAME.KODUTUMI).Forget();
         this.isHitGround = true;
