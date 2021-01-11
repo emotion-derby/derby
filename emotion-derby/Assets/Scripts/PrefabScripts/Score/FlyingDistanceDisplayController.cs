@@ -25,7 +25,8 @@ namespace Prefabs.Score
       int digit1000Num = (int)(distance / 1000);
       if (digit1000Num > 9)
       {
-        throw new System.Exception($"distance must be less than 9999. [distance={distance}]");
+        Debug.LogError($"distance must be less than 9999. [distance={distance}]");
+        distance = 9999;
       }
       this._digit1000Image.sprite = this._digitSprites[digit1000Num];
 
